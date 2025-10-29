@@ -10,11 +10,11 @@ fetch('http://api.football-data.org/v4/competitions')
             fs.writeFileSync('competitions.json', JSON.stringify(data, null, 2));
             console.log('competitions.json fitxategia gordeta.');
 
-            // 'id = 2014' duen objektua bilatu
+            // 'id = 2014' duten objektuak bilatu
             const competitions_id2014 = data.competitions.filter(c => c.id === 2014);
 
-            // 'id = 2014' duen objektua bistaratu
-            console.log('id=2014 duen objektua:');
+            // 'id = 2014' duTen objektuak bistaratu
+            console.log('id=2014 duten objektuak:');
             console.log(competitions_id2014);
         }
     )
