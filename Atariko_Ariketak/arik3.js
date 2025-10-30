@@ -14,7 +14,7 @@ fetch('http://api.football-data.org/v4/competitions')
             const competitions_TIER_ONE = data.competitions.filter(c => c.plan === "TIER_ONE");
 
             // ESP, ENG, ITA, FRA herrialdeetakoak lortu
-            const competitions_TIER_ONE_ESP_ENG_ITA_FRA = competitions_TIER_ONE.filter(c => c.area.name === "Spain" || c.area.name === "Italy" || c.area.name === "England" || c.area.name === "France");
+            const competitions_TIER_ONE_ESP_ENG_ITA_FRA = competitions_TIER_ONE.filter(c => ["Spain", "Italy", "England", "France"].includes(c.area.name));
 
             console.log('ESP, ENG, ITA, FRA herrialdeetako TIER_ONE ligak lortu:');
             console.log(competitions_TIER_ONE_ESP_ENG_ITA_FRA);
