@@ -1,6 +1,6 @@
 import fs from 'fs';
 
-// Datuak lortu, competitions.json fitxategian gorde string moduan eta ESP, ENG, ITA, FRA herrialdeetako TIER_ONE ligak lortu
+// Datuak lortu, competitions.json fitxategian gorde string moduan eta ESP, ENG, ITA, FRA herrialdeetako TIER_ONE ligak lortu, baina Championship liga baztertuz
 fetch('http://api.football-data.org/v4/competitions')
     .then(
         r => r.json())
@@ -13,12 +13,12 @@ fetch('http://api.football-data.org/v4/competitions')
             // 'plan = TIER_ONE' duten objektuak bilatu
             const competitions_TIER_ONE = data.competitions.filter(c => c.plan === "TIER_ONE");
 
-            // ESP, ENG, ITA, FRA herrialdeetakoak lortu
-            const competitions_TIER_ONE_ESP_ENG_ITA_FRA = competitions_TIER_ONE.filter(c => c.area.name === "Spain" || c.area.name === "Italy" || c.area.name === "England" || c.area.name === "France");
+            // ESP, ENG, ITA, FRA herrialdeetakoak lortu + Championship liga kendu
+            const competitions_TIER_ONE_ESP_ENG_ITA_FRA = competitions_TIER_ONE.filter(c => c.area.name === "Spain" || c.area.name === "Italy" || c.area.name === "England" || c.area.name === "France").filter(c => c.name != "Championship");
 
             console.log('ESP, ENG, ITA, FRA herrialdeetako TIER_ONE ligak lortu:');
             console.log(competitions_TIER_ONE_ESP_ENG_ITA_FRA);
-            console.log(competitions_TIER_ONE_ESP_ENG_ITA_FRA.length); // 5
+            console.log(competitions_TIER_ONE_ESP_ENG_ITA_FRA.length); // 4
         }
     )
 
