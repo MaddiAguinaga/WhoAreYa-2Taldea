@@ -3,6 +3,18 @@ import { fetchJSON } from "./loaders.js";
 
 function differenceInDays(date1) {
     // YOUR CODE HERE
+
+    // Gaurko data hartu
+    const today = new Date();
+    // Orduak kendu, egunetan soilik konparatzeko
+    today.setHours(0, 0, 0, 0);
+    date1.setHours(0, 0, 0, 0);
+    // Milisegundoen arteko diferentzia kalkulatu
+    const diffInMs = today.getTime() - date1.getTime();
+    // Egunetara bihurtu (1 egun = 86.400.000 ms)
+    const diffInDays = diffInMs / (1000 * 60 * 60 * 24);
+    // Emaitza bueltatu (zenbakia positiboa edo negatiboa izan daiteke)
+    return diffInDays;
 }
 
 let difference_In_Days = differenceInDays(new Date("01-10-2025"));
