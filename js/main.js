@@ -33,7 +33,22 @@ let game = {
 
 function getSolution(players, solutionArray, difference_In_Days) {
  
-    // YOUR CODE HERE 
+    // YOUR CODE HERE
+
+    // Calculate the index in the solution array
+    const index = (difference_In_Days - 1) % solutionArray.length;
+
+    // Retrieve the solution object
+    const solution = solutionArray[index];
+
+    // Find the corresponding player object in the players array
+    const player = players.find(p => p.id === solution.id);
+
+    // Show the player object for debugging
+    console.log("Selected Player:", player);
+
+    // Return the player object
+    return player;
 }
 
 Promise.all([fetchJSON("fullplayers25"), fetchJSON("solution25")]).then(
