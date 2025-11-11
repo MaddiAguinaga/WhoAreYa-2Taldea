@@ -38,11 +38,11 @@ function getSolution(players, solutionArray, difference_In_Days) {
     // Calculate the index in the solution array
     const index = (difference_In_Days - 1) % solutionArray.length;
 
-    // Retrieve the solution object
-    const solution = solutionArray[index];
+    // jokalariaren id lortu
+    const playerId = solutionArray[index];
 
     // Find the corresponding player object in the players array
-    const player = players.find(p => p.id === solution.id);
+    const player = players.find(p => p.id.toString() === playerId);
 
     // Show the player object for debugging
     console.log("Selected Player:", player);
@@ -51,7 +51,7 @@ function getSolution(players, solutionArray, difference_In_Days) {
     return player;
 }
 
-Promise.all([fetchJSON("fullplayers25"), fetchJSON("solution25")]).then(
+Promise.all([fetchJSON("./json/fullplayers25.json"), fetchJSON("./json/solution25.json")]).then(
   (values) => {
 
     let solution;
@@ -59,10 +59,9 @@ Promise.all([fetchJSON("fullplayers25"), fetchJSON("solution25")]).then(
     [game.players, solution] = values;
 
     game.solution = getSolution(game.players, solution, difference_In_Days);
-    
-    console.log(game.solution);
 
-    document.getElementById("mistery").src = `https://playfootball.games/media/players/${game.solution.id % 32}/${game.solution.id}.png`;
-  
+    // irudia eguneratu
+    document.getElementById("mistery").src = `https://playfootball.games/media/players/${Number(game.solution.id) % 32}/${game.solution.id}.png`;
+
   }
 );
