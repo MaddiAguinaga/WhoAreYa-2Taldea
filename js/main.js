@@ -1,6 +1,6 @@
 import { folder, leftArrow } from "./fragments.js";
 import { fetchJSON } from "./loaders.js";
-import { leagueToFlag } from "./rows.js";
+import { setupRows } from "./rows.js";
 
 
 function differenceInDays(date1) {
@@ -68,11 +68,20 @@ Promise.all([fetchJSON("./json/fullplayers25.json"), fetchJSON("./json/solution2
     document.getElementById("mistery").src = `https://playfootball.games/media/players/${Number(game.solution.id) % 32}/${game.solution.id}.png`;
 
     // YOUR CODE HERE
-    let addRow = setupRows( /* THIS NEEDS A PARAMETER */ );
+    let addRow = setupRows( /* THIS NEEDS A PARAMETER */ game );
     // get myInput object...
-      // when the user types a number an press the Enter key:
-        addRow( /* the ID of the player, where is it? */);
-    //
+    const myInput = document.getElementById("myInput");
+      // when the user types a number and presses the Enter key:
+      myInput.addEventListener("keydown", function (event) {
+          if (event.key === "Enter") {
+              const playerId = Number(myInput.value.trim()); // erabiltzaileak id-a sartzen du
+              if (!isNaN(playerId)) {
+                  addRow(/* the ID of the player*/ playerId);
+                  myInput.value = ""; // garbitu inputa
+              }
+          }
+      });
+
 
   }
 );

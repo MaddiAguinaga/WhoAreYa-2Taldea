@@ -1,6 +1,6 @@
 // YOUR CODE HERE :
 // .... stringToHTML ....
-import {stringToHTML } from '.fragments.js';
+import {stringToHTML } from './fragments.js';
 
 // .... setupRows .....
 
@@ -97,4 +97,6 @@ let setupRows = function (game) {
         let content = setContent(guess)
         showContent(content, guess)
     }
+
 }
+export { setupRows };
