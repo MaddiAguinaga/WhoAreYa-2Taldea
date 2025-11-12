@@ -7,7 +7,7 @@
 //4.leagueToFlag(leagueId)
 export function leagueToFlag(leagueId) {
 
-    // mapearen bidez lortu bakoitzaren flg-a
+    // Mapearen bidez lortu bakoitzaren flg-a
     const map = {
         564: "es1", // España (La Liga)
         8: "en1",   // Inglaterra (Premier League)
