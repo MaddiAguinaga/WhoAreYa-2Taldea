@@ -1,5 +1,7 @@
 // YOUR CODE HERE :
 // .... stringToHTML ....
+import {stringToHTML } from '.fragments.js';
+
 // .... setupRows .....
 
 const delay = 350;
