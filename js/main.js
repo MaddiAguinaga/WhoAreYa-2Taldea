@@ -1,5 +1,7 @@
 import { folder, leftArrow } from "./fragments.js";
 import { fetchJSON } from "./loaders.js";
+import { leagueToFlag } from "./rows.js";
+
 
 function differenceInDays(date1) {
     // YOUR CODE HERE
@@ -24,6 +26,7 @@ window.onload = function () {
   document.getElementById("back-icon").innerHTML = folder + leftArrow;
 };
 
+//Jokoaren egoera gordetzen duen objetu nagusia
 let game = {
   guesses: [],
   solution: {},
@@ -51,6 +54,7 @@ function getSolution(players, solutionArray, difference_In_Days) {
     return player;
 }
 
+//getSolution funtzioari deia egin
 Promise.all([fetchJSON("./json/fullplayers25.json"), fetchJSON("./json/solution25.json")]).then(
   (values) => {
 
@@ -65,3 +69,4 @@ Promise.all([fetchJSON("./json/fullplayers25.json"), fetchJSON("./json/solution2
 
   }
 );
+
