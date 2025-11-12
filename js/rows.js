@@ -50,6 +50,44 @@ let setupRows = function (game) {
 
     let check = function (theKey, theValue) {
         // YOUR CODE HERE
+        const player = game.solution;
+
+        // Atributua existitzen dela ziurtatu
+        if (!(theKey in player)) {
+            return 'invalid key';
+        }
+
+        // Birthdate kasu berezia tratatu
+        if (theKey === 'birthdate') {
+            // Bi datak Date objektu bihurtu
+            const playerDate = new Date(player.birthdate);
+            const inputDate = new Date(theValue);
+
+            // Adina kalkulatu bi datetatik
+            const calcAge = date => {
+                const diff = Date.now() - date.getTime();
+                return new Date(diff).getUTCFullYear() - 1970;
+            };
+
+            const playerAge = calcAge(playerDate);
+            const inputAge = calcAge(inputDate);
+
+            if (playerAge === inputAge) {
+                return 'correct';
+            } else if (playerAge > inputAge) {
+                return 'higher';
+            } else {
+                return 'lower';
+            }
+        }
+
+        // Gainerako atributuentzat konparaketa orokorra
+        if (player[theKey] === theValue) {
+            return 'correct';
+        } else {
+            return 'incorrect';
+        }
+
     }
 
     function setContent(guess) {
