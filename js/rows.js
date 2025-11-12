@@ -1,6 +1,6 @@
 // YOUR CODE HERE :
 // .... stringToHTML ....
-import {stringToHTML } from '.fragments.js';
+import {stringToHTML } from './fragments.js';
 
 // .... setupRows .....
 
@@ -88,6 +88,11 @@ let setupRows = function (game) {
 
     let getPlayer = function (playerId) {
         // YOUR CODE HERE
+        // game.players array-an bilatu ID hori duen jokalaria
+        const player = game.players.find(p => p.id === playerId);
+
+        // Jokalaria aurkitzen bada itzuli, bestela null
+        return player || null;
     }
 
     return /* addRow */ function (playerId) {
