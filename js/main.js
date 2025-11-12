@@ -1,6 +1,7 @@
 import { folder, leftArrow } from "./fragments.js";
 import { fetchJSON } from "./loaders.js";
-import { leagueToFlag } from "./rows.js";
+
+
 
 
 function differenceInDays(date1) {

@@ -4,6 +4,7 @@ import {stringToHTML } from '.fragments.js';
 
 // .... setupRows .....
 
+
 const delay = 350;
 const attribs = ['nationality', 'leagueId', 'teamId', 'position', 'birthdate']
 
