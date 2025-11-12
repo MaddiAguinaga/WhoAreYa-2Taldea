@@ -50,7 +50,7 @@ let setupRows = function (game) {
 
     let check = function (theKey, theValue) {
         // YOUR CODE HERE
-        const player = game.solution;
+        const player = getPlayer(game.solution.id);
 
         // Atributua existitzen dela ziurtatu
         if (!(theKey in player)) {
@@ -64,10 +64,7 @@ let setupRows = function (game) {
             const inputDate = new Date(theValue);
 
             // Adina kalkulatu bi datetatik
-            const calcAge = date => {
-                const diff = Date.now() - date.getTime();
-                return new Date(diff).getUTCFullYear() - 1970;
-            };
+            const calcAge = date => new Date().getFullYear() - date.getFullYear();
 
             const playerAge = calcAge(playerDate);
             const inputAge = calcAge(inputDate);
@@ -82,7 +79,7 @@ let setupRows = function (game) {
         }
 
         // Gainerako atributuentzat konparaketa orokorra
-        if (player[theKey] === theValue) {
+        else if (player[theKey] === theValue) {
             return 'correct';
         } else {
             return 'incorrect';
