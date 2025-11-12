@@ -67,6 +67,13 @@ Promise.all([fetchJSON("./json/fullplayers25.json"), fetchJSON("./json/solution2
     // irudia eguneratu
     document.getElementById("mistery").src = `https://playfootball.games/media/players/${Number(game.solution.id) % 32}/${game.solution.id}.png`;
 
+    // YOUR CODE HERE
+    let addRow = setupRows( /* THIS NEEDS A PARAMETER */ );
+    // get myInput object...
+      // when the user types a number an press the Enter key:
+        addRow( /* the ID of the player, where is it? */);
+    //
+
   }
 );
 
