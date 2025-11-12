@@ -136,4 +136,6 @@ let setupRows = function (game) {
         let content = setContent(guess)
         showContent(content, guess)
     }
+
 }
+export { setupRows };
