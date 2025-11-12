@@ -84,7 +84,6 @@ let setupRows = function (game) {
         } else {
             return 'incorrect';
         }
-
     }
 
     function setContent(guess) {
