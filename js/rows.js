@@ -51,14 +51,14 @@ let setupRows = function (game) {
     let check = function (theKey, theValue) {
         // YOUR CODE HERE
         const player = getPlayer(game.solution.id);
+        let result;
 
         // Atributua existitzen dela ziurtatu
         if (!(theKey in player)) {
-            return 'invalid key';
+            result = 'invalid key';
         }
-
         // Birthdate kasu berezia tratatu
-        if (theKey === 'birthdate') {
+        else if (theKey === 'birthdate') {
             // Bi datak Date objektu bihurtu
             const playerDate = new Date(player.birthdate);
             const inputDate = new Date(theValue);
@@ -70,20 +70,22 @@ let setupRows = function (game) {
             const inputAge = calcAge(inputDate);
 
             if (playerAge === inputAge) {
-                return 'correct';
+                result = 'correct';
             } else if (playerAge > inputAge) {
-                return 'higher';
+                result = 'higher';
             } else {
-                return 'lower';
+                result = 'lower';
             }
         }
 
         // Gainerako atributuentzat konparaketa orokorra
         else if (player[theKey] === theValue) {
-            return 'correct';
+            result = 'correct';
         } else {
-            return 'incorrect';
+            result = 'incorrect';
         }
+
+        return result;
     }
 
     function setContent(guess) {
@@ -105,6 +107,7 @@ let setupRows = function (game) {
                                 ${content[j]}
                             </div>
                          </div>`
+
         }
 
         let child = `<div class="flex w-full flex-wrap text-l py-2">
