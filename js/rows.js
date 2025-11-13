@@ -90,16 +90,7 @@ let setupRows = function (game) {
     }
 
     function setContent(guess) {
-      /*  return [
-            `<img src="https://playfootball.games/media/nations/${guess.nationality.toLowerCase()}.svg" alt="" style="width: 60%;">`,
-            `<img src="https://playfootball.games/media/competitions/${leagueToFlag(guess.leagueId)}.png" alt="" style="width: 60%;">`,
-            `<img src="https://cdn.sportmonks.com/images/soccer/teams/${guess.teamId % 32}/${guess.teamId}.png" alt="" style="width: 60%;">`,
-            `${guess.position}`,
-            `${getAge(guess.birthdate)}`
-        ]
-        */
 
-         // Comparar la edad del jugador con la del jugador solución
     const solutionAge = getAge(game.solution.birthdate);
     const guessAge = getAge(guess.birthdate);
 
