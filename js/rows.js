@@ -94,7 +94,7 @@ let setupRows = function (game) {
     const solutionAge = getAge(game.solution.birthdate);
     const guessAge = getAge(guess.birthdate);
 
-    let ageDisplay = `${guessAge}`; // valor por defecto
+    let ageDisplay = `${guessAge}`;
 
     if (guessAge < solutionAge) {
         ageDisplay = `${higher} ${guessAge}`;
