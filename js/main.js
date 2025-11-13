@@ -1,6 +1,8 @@
 import { folder, leftArrow } from "./fragments.js";
 import { fetchJSON } from "./loaders.js";
 import { setupRows } from "./rows.js";
+import { autocomplete } from "./autocomplete.js";
+
 
 
 function differenceInDays(date1) {
@@ -67,21 +69,8 @@ Promise.all([fetchJSON("./json/fullplayers25.json"), fetchJSON("./json/solution2
     // irudia eguneratu
     document.getElementById("mistery").src = `https://playfootball.games/media/players/${Number(game.solution.id) % 32}/${game.solution.id}.png`;
 
-    // YOUR CODE HERE
-    let addRow = setupRows( /* THIS NEEDS A PARAMETER */ game );
-    // get myInput object...
     const myInput = document.getElementById("myInput");
-      // when the user types a number and presses the Enter key:
-      myInput.addEventListener("keydown", function (event) {
-          if (event.key === "Enter") {
-              const playerId = Number(myInput.value.trim()); // erabiltzaileak id-a sartzen du
-              if (!isNaN(playerId)) {
-                  addRow(/* the ID of the player*/ playerId);
-                  myInput.value = ""; // garbitu inputa
-              }
-          }
-      });
-
+    autocomplete(myInput, game);
 
   }
 );

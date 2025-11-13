@@ -29,7 +29,7 @@ function autocomplete(inp, game) {
         /*for each item in the array...*/
         for (i = 0; i < players.length; i++) {
             /*check if the item starts with the same letters as the text field value:*/
-            if ( /* YOUR CODE HERE */ ) {
+            if ( /* YOUR CODE HERE */ players[i].name.substr(0, val.length).toUpperCase() === val.toUpperCase()) {
 
                 b = document.createElement("DIV");
                 b.classList.add('flex', 'items-start', 'gap-x-3', 'leading-tight', 'uppercase', 'text-sm');
@@ -37,7 +37,7 @@ function autocomplete(inp, game) {
 
                 /*make the matching letters bold:*/
                 b.innerHTML += `<div class='self-center'>
-                                    <span class='font-bold'> YOUR CODE HERE : koinziditzen duten hizkiak beltzez</span><span class>YOUR CODE HERE: gainontzeko izena</span>
+                                    <span class='font-bold'>${players[i].name.substring(0, val.length)}</span><span>${players[i].name.substring(val.length)}</span>
                                     <input type='hidden' name='name' value='${players[i].name}'>
                                     <input type='hidden' name='id' value='${players[i].id}'>
                                 </div>`;
@@ -52,6 +52,7 @@ function autocomplete(inp, game) {
                     closeAllLists();
 
                     /* YOUR CODE HERE */
+                    addRow(this.getElementsByTagName("input")[1].value)
                 });
                 a.appendChild(b);
             }

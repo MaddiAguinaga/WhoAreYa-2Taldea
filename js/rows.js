@@ -1,6 +1,7 @@
 // YOUR CODE HERE :
 // .... stringToHTML ....
-import {stringToHTML } from './fragments.js';
+import {stringToHTML, higher, lower } from './fragments.js';
+
 
 // .... setupRows .....
 
@@ -89,13 +90,36 @@ let setupRows = function (game) {
     }
 
     function setContent(guess) {
-        return [
+      /*  return [
             `<img src="https://playfootball.games/media/nations/${guess.nationality.toLowerCase()}.svg" alt="" style="width: 60%;">`,
             `<img src="https://playfootball.games/media/competitions/${leagueToFlag(guess.leagueId)}.png" alt="" style="width: 60%;">`,
             `<img src="https://cdn.sportmonks.com/images/soccer/teams/${guess.teamId % 32}/${guess.teamId}.png" alt="" style="width: 60%;">`,
             `${guess.position}`,
             `${getAge(guess.birthdate)}`
         ]
+        */
+
+         // Comparar la edad del jugador con la del jugador solución
+    const solutionAge = getAge(game.solution.birthdate);
+    const guessAge = getAge(guess.birthdate);
+
+    let ageDisplay = `${guessAge}`; // valor por defecto
+
+    if (guessAge < solutionAge) {
+        ageDisplay = `${higher} ${guessAge}`;
+    } else if (guessAge > solutionAge) {
+        ageDisplay = `${lower} ${guessAge}`;
+    }
+
+    return [
+        `<img src="https://playfootball.games/media/nations/${guess.nationality.toLowerCase()}.svg" alt="" style="width: 60%;">`,
+        `<img src="https://playfootball.games/media/competitions/${leagueToFlag(guess.leagueId)}.png" alt="" style="width: 60%;">`,
+        `<img src="https://cdn.sportmonks.com/images/soccer/teams/${guess.teamId % 32}/${guess.teamId}.png" alt="" style="width: 60%;">`,
+        `${guess.position}`,
+        ageDisplay
+    ];
+
+
     }
 
     function showContent(content, guess) {
@@ -125,6 +149,7 @@ let setupRows = function (game) {
     let getPlayer = function (playerId) {
         // YOUR CODE HERE
         // game.players array-an bilatu ID hori duen jokalaria
+        playerId = Number(playerId);
         const player = game.players.find(p => p.id === playerId);
 
         // Jokalaria aurkitzen bada itzuli, bestela null
