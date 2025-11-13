@@ -89,6 +89,25 @@ let setupRows = function (game) {
         return result;
     }
 
+    function unblur(outcome) {
+        return new Promise( (resolve, reject) =>  {
+            setTimeout(() => {
+                document.getElementById("mistery").classList.remove("hue-rotate-180", "blur")
+                document.getElementById("combobox").remove()
+                let color, text
+                if (outcome=='success'){
+                    color =  "bg-blue-500"
+                    text = "Awesome"
+                } else {
+                    color =  "bg-rose-500"
+                    text = "The player was " + game.solution.name
+                }
+                document.getElementById("picbox").innerHTML += `<div class="animate-pulse fixed z-20 top-14 left-1/2 transform -translate-x-1/2 max-w-sm shadow-lg rounded-lg pointer-events-auto ring-1 ring-black ring-opacity-5 overflow-hidden ${color} text-white"><div class="p-4"><p class="text-sm text-center font-medium">${text}</p></div></div>`
+                resolve();
+            }, "2000")
+        })
+    }
+
     function setContent(guess) {
 
     const solutionAge = getAge(game.solution.birthdate);
@@ -109,7 +128,6 @@ let setupRows = function (game) {
         `${guess.position}`,
         ageDisplay
     ];
-
 
     }
 
@@ -137,6 +155,10 @@ let setupRows = function (game) {
         playersNode.prepend(stringToHTML(child))
     }
 
+    function resetInput(){
+        // YOUR CODE HERE
+    }
+
     let getPlayer = function (playerId) {
         // YOUR CODE HERE
         // game.players array-an bilatu ID hori duen jokalaria
@@ -147,12 +169,37 @@ let setupRows = function (game) {
         return player || null;
     }
 
+    function gameEnded(lastGuess){
+        // YOUR CODE HERE
+    }
+
+
+    resetInput();
+
     return /* addRow */ function (playerId) {
 
         let guess = getPlayer(playerId)
         console.log(guess)
 
         let content = setContent(guess)
+
+        game.guesses.push(playerId)
+        updateState(playerId)
+
+        resetInput();
+
+        if (gameEnded(playerId)) {
+            // updateStats(game.guesses.length);
+
+            if (playerId == game.solution.id) {
+                success();
+            }
+
+            if (game.guesses.length == 8) {
+                gameOver();
+            }
+        }
+
         showContent(content, guess)
     }
 
