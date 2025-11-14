@@ -3,6 +3,7 @@
 import {stringToHTML, higher, lower } from './fragments.js';
 
 
+
 // .... setupRows .....
 
 
@@ -14,7 +15,7 @@ let setupRows = function (game) {
 
 
     function leagueToFlag(leagueId) {
-        // Mapearen bidez lortu bakoitzaren flg-a
+        // Mapearen bidez lortu bakoitzaren flag-a
         const map = {
             564: "es1", // España (La Liga)
             8: "en1",   // Inglaterra (Premier League)
