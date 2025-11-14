@@ -188,7 +188,7 @@ let setupRows = function (game) {
         const attempts = game.guesses.length;
 
         // Asmatu bada edo 8 saiakera egin badira -> true, bestela false
-        return lastGuess === solutionId || attempts === 8;
+        return lastGuess == solutionId || attempts === 8;
     }
 
     // YOUR CODE HERE
@@ -203,13 +203,10 @@ let setupRows = function (game) {
         unblur("gameOver");
     }
 
-    // probak egiteko, gero kendu beharko da
-    game.guesses = [];
 
     resetInput();
 
     return /* addRow */ function (playerId) {
-
 
         let guess = getPlayer(playerId)
         console.log(guess)
@@ -218,6 +215,9 @@ let setupRows = function (game) {
 
         game.guesses.push(playerId)
         updateState(playerId)
+
+        // probak egiteko
+        game.guesses = [];
 
         resetInput();
 
