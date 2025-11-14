@@ -163,7 +163,8 @@ let setupRows = function (game) {
     function resetInput(){
         // YOUR CODE HERE
         const input = document.getElementById("myInput");
-        const guessNum = game.guesses.length + 1;
+        let guessNum = game.guesses.length + 1;
+        if (guessNum > 8) guessNum = 8; // 8. saiakera ondoren 'Guess 9 of 8' ez azaltzeko
         input.value = "";
         input.placeholder = `Guess ${guessNum} of 8`;
     }
@@ -190,10 +191,25 @@ let setupRows = function (game) {
         return lastGuess === solutionId || attempts === 8;
     }
 
+    // YOUR CODE HERE
+    function success() {
+        // Deitu unblur-ri "success" parametroarekin
+        unblur("success");
+    }
+
+    // YOUR CODE HERE
+    function gameOver() {
+        // Deitu unblur-ri "gameOver" parametroarekin
+        unblur("gameOver");
+    }
+
+    // probak egiteko, gero kendu beharko da
+    game.guesses = [];
 
     resetInput();
 
     return /* addRow */ function (playerId) {
+
 
         let guess = getPlayer(playerId)
         console.log(guess)
@@ -215,9 +231,11 @@ let setupRows = function (game) {
             if (game.guesses.length == 8) {
                 gameOver();
             }
+
         }
 
         showContent(content, guess)
+
     }
 
 }

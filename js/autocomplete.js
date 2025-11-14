@@ -29,7 +29,7 @@ function autocomplete(inp, game) {
         /*for each item in the array...*/
         for (i = 0; i < players.length; i++) {
             /*check if the item starts with the same letters as the text field value:*/
-            if ( /* YOUR CODE HERE */ players[i].name.substr(0, val.length).toUpperCase() === val.toUpperCase()) {
+            if ( /* YOUR CODE HERE */ players[i].name.substring(0, val.length).toUpperCase() === val.toUpperCase()) {
 
                 b = document.createElement("DIV");
                 b.classList.add('flex', 'items-start', 'gap-x-3', 'leading-tight', 'uppercase', 'text-sm');
