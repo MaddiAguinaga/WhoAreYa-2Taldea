@@ -1,5 +1,3 @@
-export {initState}
-
 let initState = function(what, solutionId) {
 
     // YOUR CODE HERE
@@ -12,7 +10,7 @@ let initState = function(what, solutionId) {
         state = JSON.parse(obj);
     } else { // objektua ez bada existitzen, sortu objektu berria guesses hutsik jarriz
         state = {
-            solutionId: solutionId,
+            solution: solutionId,
             guesses: []
         };
 
@@ -30,5 +28,5 @@ let initState = function(what, solutionId) {
     return [state, addGuess];
 }
 
-
+export {initState}
 

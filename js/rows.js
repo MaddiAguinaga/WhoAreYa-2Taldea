@@ -1,7 +1,7 @@
 // YOUR CODE HERE :
 // .... stringToHTML ....
 import {stringToHTML, higher, lower } from './fragments.js';
-
+import { initState } from './stats.js';
 
 
 // .... setupRows .....
@@ -12,6 +12,9 @@ const attribs = ['nationality', 'leagueId', 'teamId', 'position', 'birthdate']
 
 
 let setupRows = function (game) {
+    const [state, updateState] = initState("WAYgameState", game.solution.id);
+    game.guesses = state.guesses;
+
 
 
     function leagueToFlag(leagueId) {
