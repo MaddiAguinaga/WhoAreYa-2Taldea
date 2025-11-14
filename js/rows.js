@@ -171,6 +171,14 @@ let setupRows = function (game) {
 
     function gameEnded(lastGuess){
         // YOUR CODE HERE
+
+        // Emaitzaren Id
+        const solutionId = game.solution.id;
+        // Saiakera kopurua
+        const attempts = game.guesses.length;
+
+        // Asmatu bada edo 8 saiakera egin badira -> true, bestela false
+        return lastGuess === solutionId || attempts === 8;
     }
 
 
