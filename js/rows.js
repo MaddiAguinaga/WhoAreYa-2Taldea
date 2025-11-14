@@ -159,6 +159,10 @@ let setupRows = function (game) {
 
     function resetInput(){
         // YOUR CODE HERE
+        const input = document.getElementById("myInput");
+        const guessNum = game.guesses.length + 1;
+        input.value = "";
+        input.placeholder = `Guess ${guessNum} of 8`;
     }
 
     let getPlayer = function (playerId) {
