@@ -1,6 +1,7 @@
 // YOUR CODE HERE :
 // .... stringToHTML ....
-import {stringToHTML } from './fragments.js';
+import {stringToHTML, higher, lower } from './fragments.js';
+
 
 // .... setupRows .....
 
@@ -51,16 +52,84 @@ let setupRows = function (game) {
 
     let check = function (theKey, theValue) {
         // YOUR CODE HERE
+        const player = getPlayer(game.solution.id);
+        let result;
+
+        // Atributua existitzen dela ziurtatu
+        if (!(theKey in player)) {
+            result = 'invalid key';
+        }
+        // Birthdate kasu berezia tratatu
+        else if (theKey === 'birthdate') {
+            // Bi datak Date objektu bihurtu
+            const playerDate = new Date(player.birthdate);
+            const inputDate = new Date(theValue);
+
+            // Adina kalkulatu bi datetatik
+            const calcAge = date => new Date().getFullYear() - date.getFullYear();
+
+            const playerAge = calcAge(playerDate);
+            const inputAge = calcAge(inputDate);
+
+            if (playerAge === inputAge) {
+                result = 'correct';
+            } else if (playerAge > inputAge) {
+                result = 'higher';
+            } else {
+                result = 'lower';
+            }
+        }
+
+        // Gainerako atributuentzat konparaketa orokorra
+        else if (player[theKey] === theValue) {
+            result = 'correct';
+        } else {
+            result = 'incorrect';
+        }
+
+        return result;
+    }
+
+    function unblur(outcome) {
+        return new Promise( (resolve, reject) =>  {
+            setTimeout(() => {
+                document.getElementById("mistery").classList.remove("hue-rotate-180", "blur")
+                document.getElementById("combobox").remove()
+                let color, text
+                if (outcome=='success'){
+                    color =  "bg-blue-500"
+                    text = "Awesome"
+                } else {
+                    color =  "bg-rose-500"
+                    text = "The player was " + game.solution.name
+                }
+                document.getElementById("picbox").innerHTML += `<div class="animate-pulse fixed z-20 top-14 left-1/2 transform -translate-x-1/2 max-w-sm shadow-lg rounded-lg pointer-events-auto ring-1 ring-black ring-opacity-5 overflow-hidden ${color} text-white"><div class="p-4"><p class="text-sm text-center font-medium">${text}</p></div></div>`
+                resolve();
+            }, "2000")
+        })
     }
 
     function setContent(guess) {
-        return [
-            `<img src="https://playfootball.games/media/nations/${guess.nationality.toLowerCase()}.svg" alt="" style="width: 60%;">`,
-            `<img src="https://playfootball.games/media/competitions/${leagueToFlag(guess.leagueId)}.png" alt="" style="width: 60%;">`,
-            `<img src="https://cdn.sportmonks.com/images/soccer/teams/${guess.teamId % 32}/${guess.teamId}.png" alt="" style="width: 60%;">`,
-            `${guess.position}`,
-            `${getAge(guess.birthdate)}`
-        ]
+
+    const solutionAge = getAge(game.solution.birthdate);
+    const guessAge = getAge(guess.birthdate);
+
+    let ageDisplay = `${guessAge}`;
+
+    if (guessAge < solutionAge) {
+        ageDisplay = `${higher} ${guessAge}`;
+    } else if (guessAge > solutionAge) {
+        ageDisplay = `${lower} ${guessAge}`;
+    }
+
+    return [
+        `<img src="https://playfootball.games/media/nations/${guess.nationality.toLowerCase()}.svg" alt="" style="width: 60%;">`,
+        `<img src="https://playfootball.games/media/competitions/${leagueToFlag(guess.leagueId)}.png" alt="" style="width: 60%;">`,
+        `<img src="https://cdn.sportmonks.com/images/soccer/teams/${guess.teamId % 32}/${guess.teamId}.png" alt="" style="width: 60%;">`,
+        `${guess.position}`,
+        ageDisplay
+    ];
+
     }
 
     function showContent(content, guess) {
@@ -72,6 +141,7 @@ let setupRows = function (game) {
                                 ${content[j]}
                             </div>
                          </div>`
+
         }
 
         let child = `<div class="flex w-full flex-wrap text-l py-2">
@@ -86,14 +156,26 @@ let setupRows = function (game) {
         playersNode.prepend(stringToHTML(child))
     }
 
+    function resetInput(){
+        // YOUR CODE HERE
+    }
+
     let getPlayer = function (playerId) {
         // YOUR CODE HERE
         // game.players array-an bilatu ID hori duen jokalaria
+        playerId = Number(playerId);
         const player = game.players.find(p => p.id === playerId);
 
         // Jokalaria aurkitzen bada itzuli, bestela null
         return player || null;
     }
+
+    function gameEnded(lastGuess){
+        // YOUR CODE HERE
+    }
+
+
+    resetInput();
 
     return /* addRow */ function (playerId) {
 
@@ -101,6 +183,26 @@ let setupRows = function (game) {
         console.log(guess)
 
         let content = setContent(guess)
+
+        game.guesses.push(playerId)
+        updateState(playerId)
+
+        resetInput();
+
+        if (gameEnded(playerId)) {
+            // updateStats(game.guesses.length);
+
+            if (playerId == game.solution.id) {
+                success();
+            }
+
+            if (game.guesses.length == 8) {
+                gameOver();
+            }
+        }
+
         showContent(content, guess)
     }
+
 }
+export { setupRows };
