@@ -203,10 +203,10 @@ let setupRows = function (game) {
         unblur("gameOver");
     }
 
-
-    resetInput();
     // probak egiteko
     game.guesses = [];
+
+    resetInput();
 
     return /* addRow */ function (playerId) {
 
