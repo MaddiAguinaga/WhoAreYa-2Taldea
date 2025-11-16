@@ -17,6 +17,7 @@ let setupRows = function (game) {
 
 
 
+
     function leagueToFlag(leagueId) {
         // Mapearen bidez lortu bakoitzaren flag-a
         const map = {
@@ -189,35 +190,45 @@ let setupRows = function (game) {
         // Asmatu bada edo 8 saiakera egin badira -> true, bestela false
         return lastGuess === solutionId || attempts === 8;
     }
+    function success() {
+        unblur('success').then(() => {
+            console.log("Jokalaria asmatu duzu!");
+        });
+    }
+
+    function gameOver() {
+        unblur('gameover').then(() => {
+            console.log("Game Over!");
+        });
+    }
 
 
-    resetInput();
+
 
     return /* addRow */ function (playerId) {
 
-        let guess = getPlayer(playerId)
+
+        let guess = getPlayer(playerId);
         console.log(guess)
+        let content = setContent(guess);
 
-        let content = setContent(guess)
-
-        game.guesses.push(playerId)
-        updateState(playerId)
-
-        resetInput();
+        updateState(playerId);
 
         if (gameEnded(playerId)) {
-            // updateStats(game.guesses.length);
 
             if (playerId == game.solution.id) {
                 success();
-            }
-
-            if (game.guesses.length == 8) {
+            } else {
                 gameOver();
             }
+
+        } else {
+            resetInput();
         }
 
-        showContent(content, guess)
+        showContent(content, guess);
+
+
     }
 
 }
