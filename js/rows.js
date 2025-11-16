@@ -17,7 +17,6 @@ let setupRows = function (game) {
 
 
 
-
     function leagueToFlag(leagueId) {
         // Mapearen bidez lortu bakoitzaren flag-a
         const map = {
@@ -164,7 +163,8 @@ let setupRows = function (game) {
     function resetInput(){
         // YOUR CODE HERE
         const input = document.getElementById("myInput");
-        const guessNum = game.guesses.length + 1;
+        let guessNum = game.guesses.length + 1;
+        if (guessNum > 8) guessNum = 8; // 8. saiakera ondoren 'Guess 9 of 8' ez azaltzeko
         input.value = "";
         input.placeholder = `Guess ${guessNum} of 8`;
     }
@@ -188,46 +188,53 @@ let setupRows = function (game) {
         const attempts = game.guesses.length;
 
         // Asmatu bada edo 8 saiakera egin badira -> true, bestela false
-        return lastGuess === solutionId || attempts === 8;
+        return lastGuess == solutionId || attempts === 8;
     }
+
+    // YOUR CODE HERE
     function success() {
-        unblur('success').then(() => {
-            console.log("Jokalaria asmatu duzu!");
-        });
+        // Deitu unblur-ri "success" parametroarekin
+        unblur("success");
     }
 
+    // YOUR CODE HERE
     function gameOver() {
-        unblur('gameover').then(() => {
-            console.log("Game Over!");
-        });
+        // Deitu unblur-ri "gameOver" parametroarekin
+        unblur("gameOver");
     }
 
 
-
+    resetInput();
 
     return /* addRow */ function (playerId) {
 
-
-        let guess = getPlayer(playerId);
+        let guess = getPlayer(playerId)
         console.log(guess)
-        let content = setContent(guess);
 
-        updateState(playerId);
+        let content = setContent(guess)
+
+        game.guesses.push(playerId)
+        updateState(playerId)
+
+        // probak egiteko
+        game.guesses = [];
+
+        resetInput();
 
         if (gameEnded(playerId)) {
+            // updateStats(game.guesses.length);
 
             if (playerId == game.solution.id) {
                 success();
-            } else {
+            }
+
+            if (game.guesses.length == 8) {
                 gameOver();
             }
 
-        } else {
-            resetInput();
         }
 
-        showContent(content, guess);
-
+        showContent(content, guess)
 
     }
 
