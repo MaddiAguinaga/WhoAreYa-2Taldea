@@ -205,6 +205,8 @@ let setupRows = function (game) {
 
 
     resetInput();
+    // probak egiteko
+    game.guesses = [];
 
     return /* addRow */ function (playerId) {
 
@@ -215,9 +217,6 @@ let setupRows = function (game) {
 
         game.guesses.push(playerId)
         updateState(playerId)
-
-        // probak egiteko
-        game.guesses = [];
 
         resetInput();
 
