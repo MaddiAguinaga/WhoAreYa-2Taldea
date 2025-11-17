@@ -113,6 +113,26 @@ let setupRows = function (game) {
         })
     }
 
+    function showStats(timeout) {
+        return new Promise( (resolve, reject) =>  {
+            setTimeout(() => {
+                document.body.appendChild(stringToHTML(headless(stats())));
+                document.getElementById("showHide").onclick = toggle;
+                bindClose();
+                resolve();
+            }, timeout)
+        })
+    }
+
+    function bindClose() {
+        document.getElementById("closedialog").onclick = function () {
+            document.body.removeChild(document.body.lastChild)
+            document.getElementById("mistery").classList.remove("hue-rotate-180", "blur")
+        }
+    }
+
+
+
     function setContent(guess) {
 
     const solutionAge = getAge(game.solution.birthdate);
@@ -226,6 +246,8 @@ let setupRows = function (game) {
             } else {
                 gameOver();
             }
+
+            let interval = /* YOUR CODE HERE */ ;
 
         }
 
