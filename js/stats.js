@@ -20,7 +20,6 @@ let initState = function(what, solutionId) {
 
     // Guess berriak gorde eta localStorage-n eguneratzeko funtzioa
     let addGuess = function (guess) {
-        // state.guesses.push(guess);          // guess gehitu state-ra   | komentatu ta bestela jolastean 2 guess gehitzen dira
         localStorage.setItem(what, JSON.stringify(state));  // localStorage eguneratu
     };
 

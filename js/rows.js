@@ -98,7 +98,7 @@ let setupRows = function (game) {
         return new Promise( (resolve, reject) =>  {
             setTimeout(() => {
                 document.getElementById("mistery").classList.remove("hue-rotate-180", "blur")
-                document.getElementById("combobox").remove()
+                document.getElementById("combobox").remove();
                 let color, text
                 if (outcome=='success'){
                     color =  "bg-blue-500"
@@ -203,8 +203,6 @@ let setupRows = function (game) {
         unblur("gameOver");
     }
 
-    // probak egiteko
-    game.guesses = [];
 
     resetInput();
 
@@ -225,9 +223,7 @@ let setupRows = function (game) {
 
             if (playerId == game.solution.id) {
                 success();
-            }
-
-            if (game.guesses.length == 8) {
+            } else {
                 gameOver();
             }
 
