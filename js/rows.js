@@ -273,8 +273,10 @@ let setupRows = function (game) {
                 const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
                 // Formatua: 10h 48m 51s
-                document.getElementById("nextPlayer").innerText =
-                    `${hours} h ${minutes} m ${seconds} s`;
+                const nextNode = document.getElementById("nextPlayer");
+                if (nextNode) {
+                    nextNode.innerText = `${hours} h ${minutes} m ${seconds} s`;
+                }
 
             }, 1000);
 
