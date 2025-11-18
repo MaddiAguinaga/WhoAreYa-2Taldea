@@ -1,7 +1,8 @@
 // YOUR CODE HERE :
 // .... stringToHTML ....
-import {stringToHTML, higher, lower } from './fragments.js';
-import { initState } from './stats.js';
+import {stringToHTML, higher, lower,stats } from './fragments.js';
+import { initState, updateStats} from './stats.js';
+
 
 
 // .... setupRows .....
@@ -215,15 +216,19 @@ let setupRows = function (game) {
     function success() {
         // Deitu unblur-ri "success" parametroarekin
         unblur("success");
+        //Deitu showStats funtzioari
+        showStats(0)
     }
 
     // YOUR CODE HERE
     function gameOver() {
         // Deitu unblur-ri "gameOver" parametroarekin
         unblur("gameOver");
+        //Deitu showStats funtzioari
+        showStats(0)
     }
 
-
+    game.guesses = []
     resetInput();
 
     return /* addRow */ function (playerId) {
@@ -239,7 +244,7 @@ let setupRows = function (game) {
         resetInput();
 
         if (gameEnded(playerId)) {
-            // updateStats(game.guesses.length);
+            updateStats(game.guesses.length);
 
             if (playerId == game.solution.id) {
                 success();

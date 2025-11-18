@@ -70,7 +70,8 @@ Promise.all([fetchJSON("./json/fullplayers25.json"), fetchJSON("./json/solution2
     document.getElementById("mistery").src = `https://playfootball.games/media/players/${Number(game.solution.id) % 32}/${game.solution.id}.png`;
 
     const myInput = document.getElementById("myInput");
-    autocomplete(myInput, game);
+      let addRow = setupRows(game);
+      autocomplete(myInput, game);
 
   }
 );
