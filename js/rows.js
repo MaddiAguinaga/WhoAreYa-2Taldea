@@ -1,7 +1,7 @@
 // YOUR CODE HERE :
 // .... stringToHTML ....
 import {stringToHTML, higher, lower } from './fragments.js';
-import { initState } from './stats.js';
+import { initState, updateStats} from './stats.js';
 
 
 // .... setupRows .....
@@ -223,7 +223,7 @@ let setupRows = function (game) {
         unblur("gameOver");
     }
 
-
+    game.guesses = []
     resetInput();
 
     return /* addRow */ function (playerId) {
@@ -239,7 +239,7 @@ let setupRows = function (game) {
         resetInput();
 
         if (gameEnded(playerId)) {
-            // updateStats(game.guesses.length);
+            updateStats(game.guesses.length);
 
             if (playerId == game.solution.id) {
                 success();
