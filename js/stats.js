@@ -71,6 +71,7 @@ let getStats = function(what) {
 function updateStats(t) {
     // YOUR CODE HERE
 
+
     // gameStats kargatu edo sortu
     let gameStats = JSON.parse(localStorage.getItem("gameStats")) || {
         winDistribution: [0,0,0,0,0,0,0,0,0],
