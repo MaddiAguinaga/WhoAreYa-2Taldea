@@ -1,7 +1,7 @@
 // YOUR CODE HERE :
 // .... stringToHTML ....
 import {stringToHTML, higher, lower } from './fragments.js';
-import { initState } from './stats.js';
+import { initState, updateStats} from './stats.js';
 
 
 // .... setupRows .....
@@ -98,7 +98,7 @@ let setupRows = function (game) {
         return new Promise( (resolve, reject) =>  {
             setTimeout(() => {
                 document.getElementById("mistery").classList.remove("hue-rotate-180", "blur")
-                document.getElementById("combobox").remove()
+                document.getElementById("combobox").remove();
                 let color, text
                 if (outcome=='success'){
                     color =  "bg-blue-500"
@@ -112,6 +112,26 @@ let setupRows = function (game) {
             }, "2000")
         })
     }
+
+    function showStats(timeout) {
+        return new Promise( (resolve, reject) =>  {
+            setTimeout(() => {
+                document.body.appendChild(stringToHTML(headless(stats())));
+                document.getElementById("showHide").onclick = toggle;
+                bindClose();
+                resolve();
+            }, timeout)
+        })
+    }
+
+    function bindClose() {
+        document.getElementById("closedialog").onclick = function () {
+            document.body.removeChild(document.body.lastChild)
+            document.getElementById("mistery").classList.remove("hue-rotate-180", "blur")
+        }
+    }
+
+
 
     function setContent(guess) {
 
@@ -203,7 +223,7 @@ let setupRows = function (game) {
         unblur("gameOver");
     }
 
-
+    game.guesses = []
     resetInput();
 
     return /* addRow */ function (playerId) {
@@ -216,21 +236,18 @@ let setupRows = function (game) {
         game.guesses.push(playerId)
         updateState(playerId)
 
-        // probak egiteko
-        game.guesses = [];
-
         resetInput();
 
         if (gameEnded(playerId)) {
-            // updateStats(game.guesses.length);
+            updateStats(game.guesses.length);
 
             if (playerId == game.solution.id) {
                 success();
-            }
-
-            if (game.guesses.length == 8) {
+            } else {
                 gameOver();
             }
+
+            let interval = /* YOUR CODE HERE */ ;
 
         }
 
