@@ -46,7 +46,30 @@ function successRate (e){
 
 let getStats = function(what) {
     // YOUR CODE HERE
-    //
+
+    // Saiatu localStorage-tik irakurtzen
+    let stored = localStorage.getItem(what);
+
+    // Existitzen bada -> parse eta itzuli
+    if (stored) {
+        return JSON.parse(stored);
+    }
+
+    // Bestela -> sortu estatistika berriak
+    let freshStats = {
+        winDistribution: [0,0,0,0,0,0,0,0,0],
+        gamesFailed: 0,
+        currentStreak: 0,
+        bestStreak: 0,
+        totalGames: 0,
+        successRate: 0
+    };
+
+    // localStorage-n gorde
+    localStorage.setItem(what, JSON.stringify(freshStats));
+
+    // Itzuli sortu berria
+    return freshStats;
 };
 
 
