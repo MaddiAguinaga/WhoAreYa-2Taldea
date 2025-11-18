@@ -247,7 +247,31 @@ let setupRows = function (game) {
                 gameOver();
             }
 
-            let interval = /* YOUR CODE HERE */ ;
+            let interval = /* YOUR CODE HERE */ setInterval(() => {
+
+                const now = new Date();
+
+                // Hurrengo eguneko 0:00:00
+                const tomorrow = new Date();
+                tomorrow.setHours(24, 0, 0, 0);  // gaurko 24:00 -> biharko 0:00
+
+                const diff = tomorrow - now;  // diferentzia milisegundotan
+
+                if (diff <= 0) {
+                    clearInterval(interval);
+                    document.getElementById("nextPlayer").innerText = "00:00:00";
+                    return;
+                }
+
+                const hours   = Math.floor(diff / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+                // Formatua: 10h 48m 51s
+                document.getElementById("nextPlayer").innerText =
+                    `${hours} h ${minutes} m ${seconds} s`;
+
+            }, 1000);
 
         }
 
