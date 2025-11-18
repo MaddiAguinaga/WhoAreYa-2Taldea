@@ -35,6 +35,13 @@ let initState = function(what, solutionId) {
 
 function successRate (e){
     // YOUR CODE HERE
+    const totalGames = e.totalGames;
+    const gamesFailed = e.gamesFailed;
+
+    if (totalGames == 0) return 0;
+
+    const wins = totalGames - gamesFailed;
+    return (wins / totalGames) * 100;
 }
 
 let getStats = function(what) {
