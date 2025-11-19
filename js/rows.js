@@ -1,6 +1,6 @@
 // YOUR CODE HERE :
 // .... stringToHTML ....
-import {stringToHTML, higher, lower,stats } from './fragments.js';
+import {stringToHTML, higher, lower,stats, toggle, headless } from './fragments.js';
 import { initState, updateStats} from './stats.js';
 
 
@@ -244,7 +244,7 @@ let setupRows = function (game) {
         resetInput();
 
         if (gameEnded(playerId)) {
-            updateStats(game.guesses.length);
+            updateStats(game.guesses.length, playerId == game.solution.id);
 
             if (playerId == game.solution.id) {
                 success();

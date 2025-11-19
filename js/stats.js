@@ -36,7 +36,7 @@ function successRate (e){
     if (totalGames == 0) return 0;
 
     const wins = totalGames - gamesFailed;
-    return (wins / totalGames) * 100;
+    return Math.round((wins / totalGames) * 100); // Emaitza borobiltzeko
 }
 
 let getStats = function(what) {
@@ -68,7 +68,7 @@ let getStats = function(what) {
 };
 
 
-function updateStats(t) {
+function updateStats(t, success) {
     // YOUR CODE HERE
 
 
@@ -85,8 +85,6 @@ function updateStats(t) {
     // partida kopurua handitu
     gameStats.totalGames++;
 
-    // 8 saiakeretan asmatu da?
-    const success = (t-1 < 8);
 
     if (success) {
         // Partida irabazi dugunez
@@ -98,7 +96,7 @@ function updateStats(t) {
         }
 
         // asmatze distribuzioa
-        gameStats.winDistribution[t - 1]++;
+        gameStats.winDistribution[t]++;
     } else {
         // Partida galdu da, ez da 8 saiakeretan jokalaria asmatu
         gameStats.gamesFailed++;

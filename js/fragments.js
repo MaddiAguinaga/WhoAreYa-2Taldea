@@ -64,5 +64,29 @@ adow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-sm sm:w-full s
     return blocks
 }
 
+let toggle = function(){
+    if (document.getElementById("showHide").nextSibling.firstChild.style.display == 'none') {
+        document.getElementById("showHide").innerText = "Hide Guess Distribution"
+        document.getElementById("showHide").nextSibling.firstChild.style.display = 'block'
+    }else {
+        document.getElementById("showHide").innerText = "Show Guess Distribution"
+        document.getElementById("showHide").nextSibling.firstChild.style.display = 'none'
+    }
+}
+
+let headless = function (inner) {
+    return `<div id="headlessui-portal-root">
+  <div>
+    <div class="fixed z-10 inset-0 overflow-y-auto" id="headlessui-dialog-1" role="dialog" aria-modal="true" aria-labelledby="headlessui-dialog-title-6">
+      <div class="flex items-center justify-center min-h-screen py-10 px-2 text-center sm:block sm:p-0">
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" id="headlessui-dialog-overlay-5" aria-hidden="true"></div>
+        <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&ZeroWidthSpace;</span>
+        ${inner}
+      </div>
+    </div>
+  </div>
+</div>`
+}
+
 // Dena exportatu komando bakar baten bidez
-export { folder, leftArrow, stringToHTML, higher, lower, stats };
+export { folder, leftArrow, stringToHTML, higher, lower, stats, toggle, headless};
