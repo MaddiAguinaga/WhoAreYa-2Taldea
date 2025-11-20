@@ -1,4 +1,5 @@
 import {setupRows} from "./rows.js";
+import { parse } from "./parse.js";
 
 export {autocomplete}
 
@@ -26,36 +27,55 @@ function autocomplete(inp, game) {
         a.setAttribute("class", "autocomplete-items");
         /*append the DIV element as a child of the autocomplete container:*/
         this.parentNode.appendChild(a);
+
+        let filteredPlayers = parse(players, val);
+
+
+
         /*for each item in the array...*/
-        for (i = 0; i < players.length; i++) {
-            /*check if the item starts with the same letters as the text field value:*/
-            if ( /* YOUR CODE HERE */ players[i].name.substring(0, val.length).toUpperCase() === val.toUpperCase()) {
+        for (i = 0; i < filteredPlayers.length; i++) {
+            // if-a kendu dugu
 
-                b = document.createElement("DIV");
-                b.classList.add('flex', 'items-start', 'gap-x-3', 'leading-tight', 'uppercase', 'text-sm');
-                b.innerHTML = `<img src="https://cdn.sportmonks.com/images/soccer/teams/${players[i].teamId % 32}/${players[i].teamId}.png"  width="28" height="28">`;
+            let p = filteredPlayers[i];
 
-                /*make the matching letters bold:*/
-                b.innerHTML += `<div class='self-center'>
-                                    <span class='font-bold'>${players[i].name.substring(0, val.length)}</span><span>${players[i].name.substring(val.length)}</span>
-                                    <input type='hidden' name='name' value='${players[i].name}'>
-                                    <input type='hidden' name='id' value='${players[i].id}'>
-                                </div>`;
+            b = document.createElement("DIV");
+            b.classList.add('flex', 'items-start', 'gap-x-3', 'leading-tight', 'uppercase', 'text-sm');
+            b.innerHTML = `<img src="https://cdn.sportmonks.com/images/soccer/teams/${p.teamId % 32}/${p.teamId}.png"  width="28" height="28">`;
 
-                /*execute a function when someone clicks on the item value (DIV element):*/
-                b.addEventListener("click", function (e) {
-                    /*insert the value for the autocomplete text field:*/
-                    inp.value = this.getElementsByTagName("input")[0].value;
+            // Bilatutako zatia non dagoen kalkulatu
+            const idx = p.name.toLowerCase().indexOf(val.toLowerCase());
 
-                    /*close the list of autocompleted values,
-                    (or any other open lists of autocompleted values:*/
-                    closeAllLists();
+            let before = p.name;
+            let matchText = "";
+            let after = "";
 
-                    /* YOUR CODE HERE */
-                    addRow(this.getElementsByTagName("input")[1].value)
-                });
-                a.appendChild(b);
+            // soilik aurkitu bada txertatzen da negrita
+            if (idx !== -1) {
+                before = p.name.substring(0, idx);
+                matchText = p.name.substring(idx, idx + val.length);
+                after = p.name.substring(idx + val.length);
             }
+
+            b.innerHTML += `<div class='self-center'>
+                    ${before}<span class='font-bold'>${matchText}</span>${after}
+                    <input type='hidden' name='name' value='${p.name}'>
+                    <input type='hidden' name='id' value='${p.id}'>
+                </div>`;
+
+
+            /*execute a function when someone clicks on the item value (DIV element):*/
+            b.addEventListener("click", function (e) {
+                /*insert the value for the autocomplete text field:*/
+                inp.value = this.getElementsByTagName("input")[0].value;
+
+                /*close the list of autocompleted values,
+                (or any other open lists of autocompleted values:*/
+                closeAllLists();
+
+                /* YOUR CODE HERE */
+                addRow(this.getElementsByTagName("input")[1].value)
+            });
+            a.appendChild(b);
         }
     });
 
